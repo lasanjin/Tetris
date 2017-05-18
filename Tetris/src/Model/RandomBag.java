@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This class generates a shuffled ArrayList with all seven Model.tetriminos.
+ * This class generates a shuffled List<ITetrimino> with all seven tetriminos.
  */
 public class RandomBag extends ArrayList<ITetrimino> {
 
