@@ -10,28 +10,26 @@ import java.util.List;
 /**
  * This class generates a shuffled ArrayList with all seven Model.tetriminos.
  */
-public class RandomFactory {
-    private List<ITetrimino> bag;
+public class RandomBag extends ArrayList<ITetrimino> {
 
-    public RandomFactory() {
-        bag = new ArrayList<>(7);
+    public RandomBag() {
         fillBag();
     }
 
     private void fillBag() {
         for (int i = 0; i < 7; i++) {
-            bag.add(TetriminoFactory.createTetrimino(i));
+            this.add(TetriminoFactory.createTetrimino(i));
         }
-        Collections.shuffle(bag);
+        Collections.shuffle(this);
     }
 
     public ITetrimino getNextTetrimino() {
         ITetrimino next;
-        if (bag.size() == 0) {
+        if (this.size() == 0) {
             fillBag();
         }
-        next = bag.get(0);
-        bag.remove(0);
+        next = this.get(0);
+        this.remove(0);
         return next;
     }
 

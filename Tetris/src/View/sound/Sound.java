@@ -130,5 +130,4 @@ public class Sound implements IControlSound, IModelSound {
     public boolean getMuteSound() {
         return muteSound;
     }
-
 }

@@ -66,8 +66,7 @@ public class Controller implements Runnable, IController {
                     e.getCause();
                 }
                 controlView.addKeys(keys);
-                level = next.getNewUpdateInterval();
-                updateInterval = level;
+                updateInterval = next.getNewUpdateInterval();
                 controlSound.loopSound("main");
 
             } catch (GameOverException g) {
@@ -151,6 +150,16 @@ public class Controller implements Runnable, IController {
         }
     }
 
+    @Override
+    public boolean getIsRunning() {
+        return isRunning;
+    }
+
+    @Override
+    public boolean getIsMenu() {
+        return menu;
+    }
+
     private boolean playCountDown(int i) {
         if (i == 2) {
             controlSound.playSound("three");
@@ -190,6 +199,18 @@ public class Controller implements Runnable, IController {
         notifyAll();
     }
 
+    private void addIControlModel(IControlModel model) {
+        controlModel = model;
+    }
+
+    private void addIControlView(IControlView view) {
+        controlView = view;
+    }
+
+    private void addIControlSound(IControlSound sound) {
+        controlSound = sound;
+    }
+
     private class Keys implements KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
@@ -207,7 +228,7 @@ public class Controller implements Runnable, IController {
                         if (key == KeyEvent.VK_RIGHT) {
                             controlModel.actOnKeys(key);
                         }
-                        if (key == KeyEvent.VK_UP  || key == KeyEvent.VK_X) {
+                        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_X) {
                             controlModel.actOnKeys(key);
                         }
                         if (key == KeyEvent.VK_Z) {
@@ -300,28 +321,6 @@ public class Controller implements Runnable, IController {
 
         }
 
-    }
-
-    private void addIControlModel(IControlModel model) {
-        controlModel = model;
-    }
-
-    private void addIControlView(IControlView view) {
-        controlView = view;
-    }
-
-    private void addIControlSound(IControlSound sound) {
-        controlSound = sound;
-    }
-
-    @Override
-    public boolean getIsRunning() {
-        return isRunning;
-    }
-
-    @Override
-    public boolean getIsMenu() {
-        return menu;
     }
 
 }

@@ -75,5 +75,4 @@ public class SoundClip {
             this.volume = newVolume;
         }
     }
-
 }

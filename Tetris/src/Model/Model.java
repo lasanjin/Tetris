@@ -26,7 +26,7 @@ public class Model implements IControlModel {
     private ITetrimino active;
     private ITetrimino rotated;
     private ITetrimino hold;
-    private RandomFactory factory;
+    private Model.TetriminoBag factory;
     private ArrayList<ITetrimino> next;
     private TimerTask scoreTask;
     private int totalScore;
@@ -50,7 +50,7 @@ public class Model implements IControlModel {
                 board[row][col] = ' ';
             }
         }
-        factory = new RandomFactory();
+        factory = new Model.TetriminoBag();
         active = factory.getNextTetrimino();
         active.updatePosition(0, -TETRIMINO_SIZE.height);
 
@@ -107,36 +107,6 @@ public class Model implements IControlModel {
         updateView();
     }
 
-    private void updateYPosition(int dy) throws DropException, NextLevelException {
-        if (checkCollision(active, 0, dy)) {
-            active.updatePosition(0, dy);
-        } else {
-            updateCollision();
-            nextTetrimino();
-            isFilled();
-        }
-        calcMoveScore();
-    }
-
-    private void calcMoveScore() {
-        if (softDrop) {
-            score++;
-        }
-        if (hardDrop) {
-            score += 2;
-        }
-    }
-
-    private void updateXPosition(int dx) {
-        if (checkCollision(active, dx, 0)) {
-            active.updatePosition(dx, 0);
-            controlView.updateTetrimino(active);
-            ghost.updateGhost(active);
-            ghost.placeGhost();
-            controlSound.playSound("move");
-        }
-    }
-
     @Override
     public void actOnKeys(int key) throws DropException {
         switch (key) {
@@ -171,6 +141,36 @@ public class Model implements IControlModel {
     public void actOnKeys(boolean hardDrop) {
         this.hardDrop = hardDrop;
         isHold = false;
+    }
+
+    private void updateYPosition(int dy) throws DropException, NextLevelException {
+        if (checkCollision(active, 0, dy)) {
+            active.updatePosition(0, dy);
+        } else {
+            updateCollision();
+            nextTetrimino();
+            isFilled();
+        }
+        calcMoveScore();
+    }
+
+    private void calcMoveScore() {
+        if (softDrop) {
+            score++;
+        }
+        if (hardDrop) {
+            score += 2;
+        }
+    }
+
+    private void updateXPosition(int dx) {
+        if (checkCollision(active, dx, 0)) {
+            active.updatePosition(dx, 0);
+            controlView.updateTetrimino(active);
+            ghost.updateGhost(active);
+            ghost.placeGhost();
+            controlSound.playSound("move");
+        }
     }
 
     private void updateHoldTetrimino() {
@@ -583,7 +583,7 @@ public class Model implements IControlModel {
     }
 
     /**
-     * Mirror mxm matrix
+     * Mirror mxm matrix vertically
      * @param tetrimino
      * @return
      */
