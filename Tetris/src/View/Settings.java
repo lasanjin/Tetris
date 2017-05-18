@@ -1,7 +1,10 @@
 package View;
 
-import Sound.IControlSound;
-import Tetris.IControl;
+import Model.IControlView;
+import View.buttons.IController;
+import View.buttons.MusicButton;
+import View.buttons.SoundButton;
+import View.sound.IControlSound;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -65,7 +68,7 @@ public class Settings extends JPanel {
 
     private void initImage() {
         try {
-            settings = ImageIO.read(getClass().getClassLoader().getResource("View/frame/settings.jpg"));
+            settings = ImageIO.read(getClass().getClassLoader().getResource("Resources/frame/settings.jpg"));
         } catch (IOException e) {
             e.getCause();
         }
@@ -80,7 +83,7 @@ public class Settings extends JPanel {
         musicButton.addIControlSound(sound);
     }
 
-    public void addIControl(IControl controller) {
+    public void addIControl(IController controller) {
         musicButton.addIControl(controller);
     }
 }

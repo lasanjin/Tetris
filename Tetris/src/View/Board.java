@@ -1,7 +1,7 @@
 package View;
 
-import Tetriminos.ITetrimino;
-import Tetris.Constants;
+import Model.tetriminos.ITetrimino;
+import Utils.Constants;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * This class paints the Tetris game board.
+ * This class paints the Model game board.
  */
 public class Board extends JComponent {
     protected Dimension TETRIMINO_SIZE = Constants.getTetriminoSize();
@@ -105,15 +105,15 @@ public class Board extends JComponent {
 
     private void loadImageMap() {
         try {
-            imageMap.put('I', ImageIO.read(getClass().getClassLoader().getResource("View/tetriminos/I.jpg")));
-            imageMap.put('J', ImageIO.read(getClass().getClassLoader().getResource("View/tetriminos/J.jpg")));
-            imageMap.put('L', ImageIO.read(getClass().getClassLoader().getResource("View/tetriminos/L.jpg")));
-            imageMap.put('O', ImageIO.read(getClass().getClassLoader().getResource("View/tetriminos/O.jpg")));
-            imageMap.put('S', ImageIO.read(getClass().getClassLoader().getResource("View/tetriminos/S.jpg")));
-            imageMap.put('T', ImageIO.read(getClass().getClassLoader().getResource("View/tetriminos/T.jpg")));
-            imageMap.put('Z', ImageIO.read(getClass().getClassLoader().getResource("View/tetriminos/Z.jpg")));
-            imageMap.put('G', ImageIO.read(getClass().getClassLoader().getResource("View/tetriminos/ghost.jpg")));
-            boardImage = ImageIO.read(getClass().getClassLoader().getResource("View/frame/board.jpg"));
+            imageMap.put('I', ImageIO.read(getClass().getClassLoader().getResource("Resources/tetriminos/I.jpg")));
+            imageMap.put('J', ImageIO.read(getClass().getClassLoader().getResource("Resources/tetriminos/J.jpg")));
+            imageMap.put('L', ImageIO.read(getClass().getClassLoader().getResource("Resources/tetriminos/L.jpg")));
+            imageMap.put('O', ImageIO.read(getClass().getClassLoader().getResource("Resources/tetriminos/O.jpg")));
+            imageMap.put('S', ImageIO.read(getClass().getClassLoader().getResource("Resources/tetriminos/S.jpg")));
+            imageMap.put('T', ImageIO.read(getClass().getClassLoader().getResource("Resources/tetriminos/T.jpg")));
+            imageMap.put('Z', ImageIO.read(getClass().getClassLoader().getResource("Resources/tetriminos/Z.jpg")));
+            imageMap.put('G', ImageIO.read(getClass().getClassLoader().getResource("Resources/tetriminos/ghost.jpg")));
+            boardImage = ImageIO.read(getClass().getClassLoader().getResource("Resources/frame/board.jpg"));
         } catch (IOException e) {
             e.getCause();
         }

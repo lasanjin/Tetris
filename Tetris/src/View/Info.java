@@ -1,5 +1,7 @@
 package View;
 
+import Model.IControlView;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +57,7 @@ public class Info extends JPanel {
 
     private void initImage() {
         try {
-            info = ImageIO.read(getClass().getClassLoader().getResource("View/frame/info.jpg"));
+            info = ImageIO.read(getClass().getClassLoader().getResource("Resources/frame/info.jpg"));
         } catch (IOException e) {
             e.getCause();
         }

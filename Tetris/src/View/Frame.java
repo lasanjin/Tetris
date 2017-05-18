@@ -1,6 +1,6 @@
 package View;
 
-import Tetris.Constants;
+import Utils.Constants;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,7 +27,7 @@ public class Frame extends JPanel {
 
     private void loadImage() {
         try {
-            frame = ImageIO.read(getClass().getClassLoader().getResource("View/frame/panel.jpg"));
+            frame = ImageIO.read(getClass().getClassLoader().getResource("Resources/frame/panel.jpg"));
         } catch (IOException e) {
             e.getCause();
         }

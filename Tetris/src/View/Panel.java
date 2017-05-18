@@ -1,7 +1,7 @@
 package View;
 
-import Tetriminos.ITetrimino;
-import Tetris.Constants;
+import Model.tetriminos.ITetrimino;
+import Utils.Constants;
 
 import java.awt.*;
 import java.util.ArrayList;

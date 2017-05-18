@@ -1,7 +1,11 @@
 package View;
 
-import Sound.IControlSound;
-import Tetris.IControl;
+import Model.IControlView;
+import View.buttons.IController;
+import View.buttons.InfoButton;
+import View.buttons.PlayButton;
+import View.buttons.SettingsButton;
+import View.sound.IControlSound;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -37,7 +41,7 @@ public class Menu extends JPanel {
 
     private void loadImage() {
         try {
-            menuButton = ImageIO.read(getClass().getClassLoader().getResource("View/frame/menu.jpg"));
+            menuButton = ImageIO.read(getClass().getClassLoader().getResource("Resources/frame/menu.jpg"));
         } catch (IOException e) {
             e.getCause();
         }
@@ -49,7 +53,7 @@ public class Menu extends JPanel {
         infoButton.addIControlView(view);
     }
 
-    public void addIControl(IControl controller) {
+    public void addIControl(IController controller) {
         playButton.addIControl(controller);
     }
 
