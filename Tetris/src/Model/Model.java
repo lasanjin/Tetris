@@ -26,7 +26,7 @@ public class Model implements IControlModel {
     private ITetrimino active;
     private ITetrimino rotated;
     private ITetrimino hold;
-    private Model.TetriminoBag factory;
+    private RandomBag factory;
     private ArrayList<ITetrimino> next;
     private TimerTask scoreTask;
     private int totalScore;
@@ -50,7 +50,7 @@ public class Model implements IControlModel {
                 board[row][col] = ' ';
             }
         }
-        factory = new Model.TetriminoBag();
+        factory = new RandomBag();
         active = factory.getNextTetrimino();
         active.updatePosition(0, -TETRIMINO_SIZE.height);
 
