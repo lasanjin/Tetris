@@ -74,9 +74,9 @@ public class SettingsButton extends JComponent {
 
     private void loadImages() {
         try {
-            settingsNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/settingsnormal.jpg"));
-            settingsMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/settingsmouse.jpg"));
-            settingsClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/settingsclick.jpg"));
+            settingsNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/settings/settingsnormal.jpg"));
+            settingsMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/settings/settingsmouse.jpg"));
+            settingsClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/settings/settingsclick.jpg"));
         } catch (IOException e) {
             e.getCause();
         }

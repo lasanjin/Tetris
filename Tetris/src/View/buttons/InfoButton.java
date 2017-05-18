@@ -73,9 +73,9 @@ public class InfoButton extends JComponent {
 
     private void initImage() {
         try {
-            infoNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/infonormal.jpg"));
-            infoMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/infomouse.jpg"));
-            infoClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/infoclick.jpg"));
+            infoNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/info/infonormal.jpg"));
+            infoMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/info/infomouse.jpg"));
+            infoClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/info/infoclick.jpg"));
         } catch (IOException e) {
             e.getCause();
         }

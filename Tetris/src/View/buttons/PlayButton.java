@@ -77,9 +77,9 @@ public class PlayButton extends JComponent {
 
     private void loadImages() {
         try {
-            playNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/playnormal.jpg"));
-            playMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/playmouse.jpg"));
-            playClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/playclick.jpg"));
+            playNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/play/playnormal.jpg"));
+            playMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/play/playmouse.jpg"));
+            playClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/play/playclick.jpg"));
         } catch (IOException e) {
             e.getCause();
         }
