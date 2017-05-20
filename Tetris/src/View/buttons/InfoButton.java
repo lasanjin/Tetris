@@ -2,23 +2,21 @@ package View.buttons;
 
 import Model.IControlView;
 import Utils.Constants;
+import Utils.FileHandler;
 import View.sound.IControlSound;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.Map;
 
 /**
  * This class handles Info Button action.
  */
 public class InfoButton extends JComponent {
-    private BufferedImage infoNormal;
-    private BufferedImage infoMouse;
-    private BufferedImage infoClick;
+    private Map<String, BufferedImage> imageMap;
     private BufferedImage currentImage;
     private IControlSound controlSound;
     private IControlView controlView;
@@ -28,8 +26,8 @@ public class InfoButton extends JComponent {
         Dimension INFO_BUTTON_POS = Constants.getInfoButtonPos();
         Dimension BUTTON_SIZE = Constants.getButtonSize();
         setBounds(INFO_BUTTON_POS.width, INFO_BUTTON_POS.height, BUTTON_SIZE.width, BUTTON_SIZE.height);
-        initImage();
-        currentImage = infoNormal;
+        imageMap = FileHandler.getInfoButtonMap();
+        currentImage = imageMap.get("infoNormal");
         addMouseListener(new InfoMouse());
     }
 
@@ -46,38 +44,28 @@ public class InfoButton extends JComponent {
         @Override
         public void mousePressed(MouseEvent e) {
             controlSound.playSound("press");
-            currentImage = infoClick;
+            currentImage = imageMap.get("infoClick");;
             repaint();
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            currentImage = infoNormal;
+            currentImage = imageMap.get("infoNormal");
             repaint();
             controlView.showInfo(true);
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            currentImage = infoMouse;
+            currentImage = imageMap.get("infoMouse");
             repaint();
             controlSound.playSound("buttons");
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            currentImage = infoNormal;
+            currentImage = imageMap.get("infoNormal");
             repaint();
-        }
-    }
-
-    private void initImage() {
-        try {
-            infoNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/info/infonormal.jpg"));
-            infoMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/info/infomouse.jpg"));
-            infoClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/info/infoclick.jpg"));
-        } catch (IOException e) {
-            e.getCause();
         }
     }
 

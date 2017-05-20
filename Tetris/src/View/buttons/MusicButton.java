@@ -1,26 +1,21 @@
 package View.buttons;
 
 import Utils.Constants;
+import Utils.FileHandler;
 import View.sound.IControlSound;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.Map;
 
 /**
  * This class handles Music On/Off Button action.
  */
 public class MusicButton extends JComponent {
-    private BufferedImage onNormal;
-    private BufferedImage onMouse;
-    private BufferedImage onClick;
-    private BufferedImage offNormal;
-    private BufferedImage offMouse;
-    private BufferedImage offClick;
+    private Map<String, BufferedImage> imageMap;
     private BufferedImage currentImage;
     private IControlSound controlSound;
     private IController controller;
@@ -31,15 +26,15 @@ public class MusicButton extends JComponent {
         Dimension MUSIC_BUTTON_POS = Constants.getMusicButtonPos();
         Dimension ONOFF_BUTTON_SIZE = Constants.getOnoffButtonSize();
         setBounds(MUSIC_BUTTON_POS.width, MUSIC_BUTTON_POS.height, ONOFF_BUTTON_SIZE.width, ONOFF_BUTTON_SIZE.height);
-        loadImages();
-        currentImage = onNormal;
+        imageMap = FileHandler.getOnOffButtonImageMap();
+        currentImage = imageMap.get("onNormal");
         on = true;
         addMouseListener(new MusicMouse());
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        g.drawImage(currentImage,0,0,null);
+        g.drawImage(currentImage, 0, 0, null);
     }
 
     private class MusicMouse implements MouseListener {
@@ -51,9 +46,9 @@ public class MusicButton extends JComponent {
         @Override
         public void mousePressed(MouseEvent e) {
             if (on) {
-                currentImage = onClick;
+                currentImage = imageMap.get("onClick");
             } else {
-                currentImage = offClick;
+                currentImage = imageMap.get("offClick");
             }
             repaint();
             controlSound.playSound("press");
@@ -67,11 +62,11 @@ public class MusicButton extends JComponent {
                 if (controller.getIsRunning() && !controller.getIsMenu()) {
                     controlSound.loopSound("main");
                 }
-                currentImage = onNormal;
+                currentImage = imageMap.get("onNormal");
             } else {
                 controlSound.muteMusic(true);
                 controlSound.stopSound("main");
-                currentImage = offNormal;
+                currentImage = imageMap.get("offNormal");
             }
             repaint();
         }
@@ -79,9 +74,9 @@ public class MusicButton extends JComponent {
         @Override
         public void mouseEntered(MouseEvent e) {
             if (on) {
-                currentImage = onMouse;
+                currentImage = imageMap.get("onMouse");
             } else {
-                currentImage = offMouse;
+                currentImage = imageMap.get("offMouse");
             }
             repaint();
             controlSound.playSound("buttons");
@@ -90,24 +85,11 @@ public class MusicButton extends JComponent {
         @Override
         public void mouseExited(MouseEvent e) {
             if (on) {
-                currentImage = onNormal;
+                currentImage = imageMap.get("onNormal");
             } else {
-                currentImage = offNormal;
+                currentImage = imageMap.get("offNormal");
             }
             repaint();
-        }
-    }
-
-    private void loadImages() {
-        try {
-            onNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/onnormal.jpg"));
-            onMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/onmouse.jpg"));
-            onClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/onclick.jpg"));
-            offNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/offnormal.jpg"));
-            offMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/offmouse.jpg"));
-            offClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/offclick.jpg"));
-        } catch (IOException e) {
-            e.getCause();
         }
     }
 

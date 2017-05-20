@@ -16,7 +16,7 @@ public class Panel extends Board {
     private int LEVEL_YPOS = 646;
     private int LINES_YPOS = 558;
     private ArrayList<ITetrimino> next;
-    ITetrimino hold;
+    private ITetrimino hold;
     private int score;
     private int level;
     private int lines;
@@ -85,16 +85,7 @@ public class Panel extends Board {
 
     private void drawNextTetrimino(Graphics g, ITetrimino nextTetrimino, int xPos, int yPos) {
         char[][] tetrimino = nextTetrimino.getShape();
-        for (int row = 0; row < tetrimino.length; row++) {
-            for (int col = 0; col < tetrimino[row].length; col++) {
-                char c = tetrimino[row][col];
-                if (checkChar(c)) {
-                    drawTetrimino(g, c,
-                            (xPos + col * TETRIMINO_SIZE.width),
-                            (yPos + row * TETRIMINO_SIZE.height));
-                }
-            }
-        }
+        drawTetrimino(tetrimino, xPos, yPos, g);
     }
 
     private void drawHold(Graphics g) {
@@ -102,11 +93,15 @@ public class Panel extends Board {
         int xPos = calcXPos(c);
         int yPos = calcYHold(c);
         char[][] tetrimino = hold.getShape();
+        drawTetrimino(tetrimino, xPos, yPos, g);
+    }
+
+    private void drawTetrimino(char[][] tetrimino, int xPos, int yPos, Graphics g) {
         for (int row = 0; row < tetrimino.length; row++) {
             for (int col = 0; col < tetrimino[row].length; col++) {
-                char c_ = tetrimino[row][col];
-                if (checkChar(c)) {
-                    drawTetrimino(g, c_,
+                char c = tetrimino[row][col];
+                if (!isEmpty(c)) {
+                    drawTetrimino(g, c,
                             (xPos + col * TETRIMINO_SIZE.width),
                             (yPos + row * TETRIMINO_SIZE.height));
                 }

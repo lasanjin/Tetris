@@ -1,4 +1,4 @@
-package View.sound;
+package Utils;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -16,7 +16,7 @@ public class SoundClip {
     public SoundClip(String name, float volume) {
         try {
             clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(getClass().getResource("../../Resources/sounds/" + name + ".wav")));
+            clip.open(AudioSystem.getAudioInputStream(getClass().getResource("../Resources/sounds/" + name + ".wav")));
         } catch (Exception e) {
             System.out.println("Could not load " + name);
         }

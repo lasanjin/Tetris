@@ -2,23 +2,21 @@ package View.buttons;
 
 import Model.IControlView;
 import Utils.Constants;
+import Utils.FileHandler;
 import View.sound.IControlSound;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.Map;
 
 /**
  * This class handles MainView.sound Button action.
  */
 public class SettingsButton extends JComponent {
-    private BufferedImage settingsNormal;
-    private BufferedImage settingsMouse;
-    private BufferedImage settingsClick;
+    private Map<String, BufferedImage> imageMap;
     private BufferedImage currentImage;
     private IControlView controlView;
     private IControlSound controlSound;
@@ -28,8 +26,8 @@ public class SettingsButton extends JComponent {
         Dimension SETTINGS_BUTTON_POS = Constants.getSettingsButtonPos();
         Dimension BUTTON_SIZE = Constants.getButtonSize();
         setBounds(SETTINGS_BUTTON_POS.width, SETTINGS_BUTTON_POS.height, BUTTON_SIZE.width, BUTTON_SIZE.height);
-        loadImages();
-        currentImage = settingsNormal;
+        imageMap = FileHandler.getSettingsButtonImageMap();
+        currentImage = imageMap.get("settingsNormal");
         addMouseListener(new SettingsMouse());
     }
 
@@ -46,39 +44,29 @@ public class SettingsButton extends JComponent {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            currentImage = settingsClick;
+            currentImage = imageMap.get("settingsClick");
             repaint();
             controlSound.playSound("press");
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            currentImage = settingsNormal;
+            currentImage = imageMap.get("settingsNormal");
             repaint();
             controlView.showSettings(true);
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            currentImage = settingsMouse;
+            currentImage = imageMap.get("settingsMouse");
             repaint();
             controlSound.playSound("buttons");
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            currentImage = settingsNormal;
+            currentImage = imageMap.get("settingsNormal");
             repaint();
-        }
-    }
-
-    private void loadImages() {
-        try {
-            settingsNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/settings/settingsnormal.jpg"));
-            settingsMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/settings/settingsmouse.jpg"));
-            settingsClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/settings/settingsclick.jpg"));
-        } catch (IOException e) {
-            e.getCause();
         }
     }
 

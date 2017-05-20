@@ -85,5 +85,4 @@ public class Ghost implements IGhost {
     public void addIControlView(IControlView view) {
         controlView = view;
     }
-
 }

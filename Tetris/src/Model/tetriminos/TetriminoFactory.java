@@ -1,8 +1,6 @@
 package Model.tetriminos;
 
-import Model.Model;
 import Utils.Constants;
-import Model.tetriminos.*;
 
 import java.awt.*;
 

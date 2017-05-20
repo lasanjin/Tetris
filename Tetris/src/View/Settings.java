@@ -1,24 +1,23 @@
 package View;
 
 import Model.IControlView;
+import Utils.FileHandler;
 import View.buttons.IController;
 import View.buttons.MusicButton;
 import View.buttons.SoundButton;
 import View.sound.IControlSound;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /**
  * This class paints and updates Settigs view.
  */
 public class Settings extends JPanel {
-    private BufferedImage settings;
+    private BufferedImage settingsImage;
     private IControlView controlView;
     private SoundButton soundButton;
     private MusicButton musicButton;
@@ -31,12 +30,12 @@ public class Settings extends JPanel {
         add(soundButton);
         add(musicButton);
         addMouseListener(new SettingsMouse());
-        initImage();
+        settingsImage = FileHandler.getSettingsImage();
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        g.drawImage(settings,0,0,null);
+        g.drawImage(settingsImage,0,0,null);
     }
 
     private class SettingsMouse implements MouseListener {
@@ -63,14 +62,6 @@ public class Settings extends JPanel {
         @Override
         public void mouseExited(MouseEvent e) {
 
-        }
-    }
-
-    private void initImage() {
-        try {
-            settings = ImageIO.read(getClass().getClassLoader().getResource("Resources/frame/settings.jpg"));
-        } catch (IOException e) {
-            e.getCause();
         }
     }
 

@@ -9,14 +9,12 @@ import Utils.Constants;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
- * The model. Model logic, gameplay
+ * The model. Model logic.
  */
-public class Model implements IControlModel {
+public class Model implements IUpdateModel {
     private Dimension TETRIMINO_SIZE = Constants.getTetriminoSize();
     private Dimension BOARD_SIZE = Constants.getBoardSize();
     private char[][] board;
@@ -143,6 +141,13 @@ public class Model implements IControlModel {
         isHold = false;
     }
 
+    private void updateView() {
+        controlView.updateTetrimino(active);
+        controlView.updateNextTetrimino(next);
+        controlView.updateBoard(board);
+        ghost.placeGhost();
+    }
+
     private void updateYPosition(int dy) throws DropException, NextLevelException {
         if (checkCollision(active, 0, dy)) {
             active.updatePosition(0, dy);
@@ -214,7 +219,7 @@ public class Model implements IControlModel {
         for (int row = 0; row < shape.length; row++) {
             for (int col = 0; col < shape[row].length; col++) {
                 char c = shape[row][col];
-                if (checkChar(c)) {
+                if (!isEmpty(c)) {
                     int newXPos = (tetrimino.getX() + dx) / TETRIMINO_SIZE.width + col;
                     int newYPos = (tetrimino.getY() + dy) / TETRIMINO_SIZE.height + row;
                     if (newXPos < 0) {
@@ -226,15 +231,10 @@ public class Model implements IControlModel {
                     if (newYPos >= BOARD_SIZE.height / TETRIMINO_SIZE.height) {
                         return false;
                     }
-                    try {
-                        char c_ = board[newYPos][newXPos];
-                        if (checkChar(c_)) {
-                            return false;
-                        }
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        e.getCause();
-                    }
-                }
+                    char c_ = getNext(newXPos, newYPos);
+                    if (!isEmpty(c_)) {
+                        return false;
+                    }                }
             }
         }
         return true;
@@ -244,7 +244,7 @@ public class Model implements IControlModel {
         for (int row = 0; row < shape.length; row++) {
             for (int col = 0; col < shape[row].length; col++) {
                 char c = shape[row][col];
-                if (checkChar(c)) {
+                if (!isEmpty(c)) {
                     int xPos = rotated.getX() / TETRIMINO_SIZE.width + col;
                     int yPos = rotated.getY() / TETRIMINO_SIZE.height + row;
                     if (xPos < 0) {
@@ -253,13 +253,9 @@ public class Model implements IControlModel {
                     if (xPos >= BOARD_SIZE.width / TETRIMINO_SIZE.width) {
                         return false;
                     }
-                    try {
-                        char c_ = board[yPos][xPos];
-                        if (checkChar(c_)) {
-                            return false;
-                        }
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        e.getCause();
+                    char c_ = getNext(xPos, yPos);
+                    if (!isEmpty(c_)) {
+                        return false;
                     }
                 }
             }
@@ -274,7 +270,7 @@ public class Model implements IControlModel {
         for (int row = 0; row < tetrimino.length; row++) {
             for (int col = 0; col < tetrimino[row].length; col++) {
                 char c = tetrimino[row][col];
-                if (checkChar(c)) {
+                if (!isEmpty(c)) {
                     try {
                         board[yPos + row][xPos + col] = tetrimino[row][col];
                     } catch (ArrayIndexOutOfBoundsException e) {
@@ -287,6 +283,15 @@ public class Model implements IControlModel {
         ghost.updateBoard(board);
         collisionSound();
         isHold = true;
+    }
+
+    private char getNext(int xPos, int yPos) {
+        try {
+            return board[yPos][xPos];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.getCause();
+        }
+        return ' ';
     }
 
     private void collisionSound() throws DropException {
@@ -307,7 +312,7 @@ public class Model implements IControlModel {
             boolean isFilled = true;
             for (int row = 0; row < board.length; row++) {
                 char c = board[row][col];
-                if (!checkChar(c)) {
+                if (isEmpty(c)) {
                     isFilled = false;
                 }
                 if (isFilled) {
@@ -333,7 +338,7 @@ public class Model implements IControlModel {
             boolean isFilled = true;
             for (int col = 0; col < board[row].length; col++) {
                 char c = board[row][col];
-                if (!checkChar(c)) {
+                if (isEmpty(c)) {
                     isFilled = false;
                 }
             }
@@ -472,13 +477,6 @@ public class Model implements IControlModel {
         }
     }
 
-    private void updateView() {
-        controlView.updateTetrimino(active);
-        controlView.updateNextTetrimino(next);
-        controlView.updateBoard(board);
-        ghost.placeGhost();
-    }
-
     private void rotate(boolean left) {
         setShapeAndPosition(rotated, active);
         char[][] rotatedCopy = copyShape(rotated.getShape());
@@ -612,8 +610,8 @@ public class Model implements IControlModel {
         copy.setPosition(copied.getX(), copied.getY());
     }
 
-    private boolean checkChar(char c) {
-        return c != ' ';
+    private boolean isEmpty(char c) {
+        return c == ' ';
     }
 
     public void addIControlView(IControlView view) {

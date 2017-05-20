@@ -1,53 +1,22 @@
 package View.sound;
 
 import Model.IModelSound;
+import Utils.FileHandler;
+import Utils.SoundClip;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class holds all the .wav files (sounds)
  */
 public class Sound implements IControlSound, IModelSound {
-    private HashMap<String, SoundClip> soundMap;
+    private Map<String, SoundClip> soundMap;
     private boolean muteSound;
     private boolean muteMusic;
 
 
     public Sound() {
-        soundMap = new HashMap<>(15);
-        setSoundMap();
-    }
-
-    private void setSoundMap() {
-        addSound("main", "main", -25);
-        addSound("lockdown", "lockdown", -15);
-        addSound("move", "move", -10);
-        addSound("rotate", "rotate", -15);
-        addSound("rotatefail", "rotatefail", -10);
-        addSound("clearline", "clearline", -15);
-        addSound("doubleclear", "doubleclear", -15);
-        addSound("tripleclear", "tripleclear", -15);
-        addSound("buttons", "buttons", -10);
-        addSound("press", "press", -8);
-        addSound("harddrop", "harddrop", -30);
-        addSound("levelup", "levelup", -15);
-        addSound("amazing", "amazing", -15);
-        addSound("fantastic", "fantastic", -15);
-        addSound("verygood", "verygood", -15);
-        addSound("brilliant", "brilliant", -15);
-        addSound("wow", "wow", -15);
-        addSound("excellent", "excellent", -15);
-        addSound("wonderful", "wonderful", -15);
-        addSound("gameover", "gameover", -15);
-        addSound("one", "one", -15);
-        addSound("two", "two", -15);
-        addSound("three", "three", -15);
-        addSound("hold", "hold", -15);
-
-    }
-
-    private void addSound(String name, String file, float volume) {
-        soundMap.put(name, new SoundClip(file, volume));
+        soundMap = FileHandler.getSoundMap();
     }
 
     @Override

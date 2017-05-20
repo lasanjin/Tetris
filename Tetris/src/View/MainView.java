@@ -81,27 +81,23 @@ public class MainView extends JFrame implements IControlView {
 
     @Override
     public void showSettings(boolean state) {
-        if (!state) {
-            settings.setVisible(false);
-            setGlassPane(menu);
-            menu.setVisible(true);
-        } else {
-            menu.setVisible(false);
-            setGlassPane(settings);
-            settings.setVisible(state);
-        }
+        toggleView(settings, state);
     }
 
     @Override
     public void showInfo(boolean state) {
+        toggleView(info, state);
+    }
+
+    public void toggleView(JPanel panel, boolean state) {
         if (!state) {
-            info.setVisible(false);
+            panel.setVisible(false);
             setGlassPane(menu);
             menu.setVisible(true);
         } else {
             menu.setVisible(false);
-            setGlassPane(info);
-            info.setVisible(state);
+            setGlassPane(panel);
+            panel.setVisible(state);
         }
     }
 
@@ -149,5 +145,4 @@ public class MainView extends JFrame implements IControlView {
     public void paintBoard(boolean state) {
         board.paintBoard(state);
     }
-
 }

@@ -32,5 +32,4 @@ public class RandomBag extends ArrayList<ITetrimino> {
         this.remove(0);
         return next;
     }
-
 }

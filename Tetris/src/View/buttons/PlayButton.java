@@ -2,23 +2,21 @@ package View.buttons;
 
 import Model.IControlView;
 import Utils.Constants;
+import Utils.FileHandler;
 import View.sound.IControlSound;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.Map;
 
 /**
  * This class handles MainView.sound On/Off Button action.
  */
 public class PlayButton extends JComponent {
-    private BufferedImage playNormal;
-    private BufferedImage playMouse;
-    private BufferedImage playClick;
+    private Map<String, BufferedImage> imageMap;
     private BufferedImage currentImage;
     private IControlView controlView;
     private IController controller;
@@ -29,8 +27,8 @@ public class PlayButton extends JComponent {
         Dimension PLAY_BUTTON_POS = Constants.getPlayButtonPos();
         Dimension BUTTON_SIZE = Constants.getButtonSize();
         setBounds(PLAY_BUTTON_POS.width, PLAY_BUTTON_POS.height, BUTTON_SIZE.width, BUTTON_SIZE.height);
-        loadImages();
-        currentImage = playNormal;
+        imageMap = FileHandler.getPlayButtonMap();
+        currentImage = imageMap.get("playNormal");
         addMouseListener(new PlayMouse());
     }
 
@@ -47,14 +45,14 @@ public class PlayButton extends JComponent {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            currentImage = playClick;
+            currentImage = imageMap.get("playClick");
             repaint();
             controlSound.playSound("press");
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            currentImage = playNormal;
+            currentImage = imageMap.get("playNormal");
             repaint();
             controlView.showMenu(false);
             controller.stopTetris();
@@ -64,24 +62,14 @@ public class PlayButton extends JComponent {
         @Override
         public void mouseEntered(MouseEvent e) {
             controlSound.playSound("buttons");
-            currentImage = playMouse;
+            currentImage = imageMap.get("playMouse");
             repaint();
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            currentImage = playNormal;
+            currentImage = imageMap.get("playNormal");
             repaint();
-        }
-    }
-
-    private void loadImages() {
-        try {
-            playNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/play/playnormal.jpg"));
-            playMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/play/playmouse.jpg"));
-            playClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/play/playclick.jpg"));
-        } catch (IOException e) {
-            e.getCause();
         }
     }
 

@@ -62,5 +62,4 @@ public class Menu extends JPanel {
         settingsButton.addIControlSound(sound);
         infoButton.addIControlSound(sound);
     }
-
 }

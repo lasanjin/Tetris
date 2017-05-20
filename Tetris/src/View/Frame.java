@@ -1,36 +1,26 @@
 package View;
 
 import Utils.Constants;
+import Utils.FileHandler;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /**
- * This class paints the frame.
+ * This class paints the frameImage.
  */
 public class Frame extends JPanel {
-    private BufferedImage frame;
+    private BufferedImage frameImage;
 
 
     public Frame() {
         setLayout(null);
         setPreferredSize(new Dimension(Constants.getFrameSize()));
-        loadImage();
+        frameImage = FileHandler.getFramImage();
     }
 
     public void paintComponent(Graphics g) {
-        g.drawImage(frame, 0, 0, null);
+        g.drawImage(frameImage, 0, 0, null);
     }
-
-    private void loadImage() {
-        try {
-            frame = ImageIO.read(getClass().getClassLoader().getResource("Resources/frame/panel.jpg"));
-        } catch (IOException e) {
-            e.getCause();
-        }
-    }
-
 }

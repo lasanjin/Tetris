@@ -1,23 +1,18 @@
 package View.buttons;
 
 import Utils.Constants;
+import Utils.FileHandler;
 import View.sound.IControlSound;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.Map;
 
 public class SoundButton extends JComponent {
-    private BufferedImage onNormal;
-    private BufferedImage onMouse;
-    private BufferedImage onClick;
-    private BufferedImage offNormal;
-    private BufferedImage offMouse;
-    private BufferedImage offClick;
+    private Map<String, BufferedImage> imageMap;
     private BufferedImage currentImage;
     private IControlSound controlSound;
     private boolean on;
@@ -27,8 +22,8 @@ public class SoundButton extends JComponent {
         Dimension SOUND_BUTTON_POS = Constants.getSoundButtonPos();
         Dimension ONOFF_BUTTON_SIZE = Constants.getOnoffButtonSize();
         setBounds(SOUND_BUTTON_POS.width, SOUND_BUTTON_POS.height, ONOFF_BUTTON_SIZE.width, ONOFF_BUTTON_SIZE.height);
-        loadImages();
-        currentImage = onNormal;
+        imageMap = FileHandler.getOnOffButtonImageMap();
+        currentImage = imageMap.get("onNormal");
         on = true;
         addMouseListener(new SoundMouse());
     }
@@ -47,10 +42,10 @@ public class SoundButton extends JComponent {
         @Override
         public void mousePressed(MouseEvent e) {
             if (on) {
-                currentImage = onClick;
+                currentImage = imageMap.get("onClick");
                 controlSound.playSound("press");
             } else {
-                currentImage = offClick;
+                currentImage = imageMap.get("offClick");
                 controlSound.muteSound(false);
                 controlSound.playSound("press");
             }
@@ -61,11 +56,11 @@ public class SoundButton extends JComponent {
         public void mouseReleased(MouseEvent e) {
             on = !on;
             if (on) {
-                currentImage = onNormal;
+                currentImage = imageMap.get("onNormal");
             } else {
                 controlSound.stopAllSound(false);
                 controlSound.muteSound(true);
-                currentImage = offNormal;
+                currentImage = imageMap.get("offNormal");
             }
             repaint();
         }
@@ -73,9 +68,9 @@ public class SoundButton extends JComponent {
         @Override
         public void mouseEntered(MouseEvent e) {
             if (on) {
-                currentImage = onMouse;
+                currentImage = imageMap.get("onMouse");
             } else {
-                currentImage = offMouse;
+                currentImage = imageMap.get("offMouse");
             }
             repaint();
             controlSound.playSound("buttons");
@@ -84,24 +79,11 @@ public class SoundButton extends JComponent {
         @Override
         public void mouseExited(MouseEvent e) {
             if (on) {
-                currentImage = onNormal;
+                currentImage = imageMap.get("onNormal");
             } else {
-                currentImage = offNormal;
+                currentImage = imageMap.get("offNormal");
             }
             repaint();
-        }
-    }
-
-    private void loadImages() {
-        try {
-            onNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/onnormal.jpg"));
-            onMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/onmouse.jpg"));
-            onClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/onclick.jpg"));
-            offNormal = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/offnormal.jpg"));
-            offMouse = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/offmouse.jpg"));
-            offClick = ImageIO.read(getClass().getClassLoader().getResource("Resources/buttons/onoff/offclick.jpg"));
-        } catch (IOException e) {
-            e.getCause();
         }
     }
 

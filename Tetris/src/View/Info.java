@@ -1,31 +1,30 @@
 package View;
 
 import Model.IControlView;
+import Utils.FileHandler;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /**
  * This class paints the Info view.
  */
 public class Info extends JPanel {
-    private BufferedImage info;
+    private BufferedImage infoImage;
     private IControlView controlView;
 
 
     public Info() {
         addMouseListener(new InfoMouse());
-        initImage();
+        infoImage = FileHandler.getInfoImage();
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        g.drawImage(info,0,0,null);
+        g.drawImage(infoImage,0,0,null);
     }
 
     private class InfoMouse implements MouseListener {
@@ -52,14 +51,6 @@ public class Info extends JPanel {
         @Override
         public void mouseExited(MouseEvent e) {
 
-        }
-    }
-
-    private void initImage() {
-        try {
-            info = ImageIO.read(getClass().getClassLoader().getResource("Resources/frame/info.jpg"));
-        } catch (IOException e) {
-            e.getCause();
         }
     }
 

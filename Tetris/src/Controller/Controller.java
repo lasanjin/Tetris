@@ -17,11 +17,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Controller class, handles input from user.
+ * Controller class. Handles input from user.
  */
 public class Controller implements Runnable, IController {
     private IControlSound controlSound;
-    private IControlModel controlModel;
+    private IUpdateModel controlModel;
     private IControlView controlView;
     private Keys keys;
     private Thread thread;
@@ -130,23 +130,7 @@ public class Controller implements Runnable, IController {
             controlView.addKeys(keys);
             thread.start();
         } else {
-            countDown = 3;
-            Timer timer = new Timer();
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    countDown--;
-                    if (playCountDown(countDown)) {
-                        controlView.paintBoard(true);
-                        controlSound.playSound("main");
-                        controlSound.loopSound("main");
-                        controlView.addKeys(keys);
-                        thread.start();
-                        this.cancel();
-                    }
-                }
-            };
-            timer.scheduleAtFixedRate(task, 200, 1200);
+            initiateCoundDown();
         }
     }
 
@@ -158,6 +142,26 @@ public class Controller implements Runnable, IController {
     @Override
     public boolean getIsMenu() {
         return menu;
+    }
+
+    private void initiateCoundDown() {
+        countDown = 3;
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                countDown--;
+                if (playCountDown(countDown)) {
+                    controlView.paintBoard(true);
+                    controlSound.playSound("main");
+                    controlSound.loopSound("main");
+                    controlView.addKeys(keys);
+                    thread.start();
+                    this.cancel();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 200, 1200);
     }
 
     private boolean playCountDown(int i) {
@@ -199,7 +203,7 @@ public class Controller implements Runnable, IController {
         notifyAll();
     }
 
-    private void addIControlModel(IControlModel model) {
+    private void addIControlModel(IUpdateModel model) {
         controlModel = model;
     }
 
@@ -322,5 +326,4 @@ public class Controller implements Runnable, IController {
         }
 
     }
-
 }

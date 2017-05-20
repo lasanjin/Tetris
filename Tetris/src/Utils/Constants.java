@@ -66,5 +66,4 @@ public class Constants {
     public static Dimension getBoardScale() {
         return new Dimension(BOARD_SCALE);
     }
-
 }
