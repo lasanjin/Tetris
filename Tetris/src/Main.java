@@ -1,7 +1,7 @@
-import Controller.Controller;
-import Utils.FileHandler;
-import View.sound.Sound;
-import View.*;
+import controller.Controller;
+import utils.FileHandler;
+import view.sound.Sound;
+import view.*;
 
 /**
  * Main
