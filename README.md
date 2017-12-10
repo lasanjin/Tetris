@@ -1,7 +1,9 @@
 # Tetris
 
+
 ## Desciption
 Navigate with mouse. Click on screen to toggle between menu and gameplay or go back to menu from different view.
+
 
 ## GUI
 <p align="center"><img src="/Tetris/src/resources/frame/menu.jpg"></p>
@@ -11,3 +13,8 @@ Navigate with mouse. Click on screen to toggle between menu and gameplay or go b
 <p align="center"><img src="/Tetris/settings.jpg"></p>
 
 <p align="center"><img src="/Tetris/src/resources/frame/info.jpg"></p>
+
+
+## Dependencies
+
+<p align="center"><img src="/Tetris/dependencies.jpg"></p>
