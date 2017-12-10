@@ -96,7 +96,7 @@ public class Sound implements IControlSound, IModelSound {
         muteMusic = state;
     }
 
-    public boolean getMuteSound() {
+    public boolean isSoundMute() {
         return muteSound;
     }
 }

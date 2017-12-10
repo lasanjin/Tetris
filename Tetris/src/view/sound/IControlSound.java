@@ -11,5 +11,5 @@ public interface IControlSound extends IModelSound {
     void stopAllSound(boolean main);
     void muteSound(boolean mute);
     void muteMusic(boolean mute);
-    boolean getMuteSound();
+    boolean isSoundMute();
 }

@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.util.Map;
 
 /**
- * This class handles MainView.sound Button action.
+ * This class handles Settings button's action.
  */
 public class SettingsButton extends JComponent {
     private Map<String, BufferedImage> imageMap;

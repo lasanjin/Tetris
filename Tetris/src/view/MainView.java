@@ -45,7 +45,7 @@ public class MainView extends JFrame implements IControlView {
         panel = new Panel();
         add(panel);
 
-        setTitle("model 2.0");
+        setTitle("Tetris");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         pack();

@@ -17,8 +17,8 @@ public class Board extends JComponent {
     private Map<Character, BufferedImage> imageMap;
     private BufferedImage boardImage;
     private ITetrimino active;
-    private char[][] board;
     private ITetrimino ghost;
+    private char[][] board;
     protected boolean paint;
 
 
@@ -32,7 +32,7 @@ public class Board extends JComponent {
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(boardImage, 0, 0, null);
-        if(paint) {
+        if (paint) {
             if (board != null) {
                 updateBoard(g);
             }
@@ -101,7 +101,7 @@ public class Board extends JComponent {
         repaint();
     }
 
-    public void paintBoard(boolean state){
+    public void paintBoard(boolean state) {
         paint = state;
         repaint();
     }

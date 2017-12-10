@@ -17,7 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * controller class. Handles input from user.
+ * Controller class. Handles input from user.
  */
 public class Controller implements Runnable, IController {
     private IControlSound controlSound;
@@ -107,11 +107,7 @@ public class Controller implements Runnable, IController {
 
     @Override
     public void startTetris() {
-        controlView.updateNextTetrimino(null);
-        controlView.updateHold(null);
-        controlView.updateScore(0);
-        controlView.updateLevel(1);
-        controlView.updateLines(0);
+        resetView();
         Model model = new Model();
         model.addIControlView(controlView);
         model.addIControlSound(controlSound);
@@ -123,7 +119,7 @@ public class Controller implements Runnable, IController {
         gameOver = false;
         level = 350;
         updateInterval = level;
-        if (controlSound.getMuteSound()) {
+        if (controlSound.isSoundMute()) {
             controlView.paintBoard(true);
             controlSound.playSound("main");
             controlSound.loopSound("main");
@@ -132,6 +128,14 @@ public class Controller implements Runnable, IController {
         } else {
             initiateCoundDown();
         }
+    }
+
+    private void resetView() {
+        controlView.updateNextTetrimino(null);
+        controlView.updateHold(null);
+        controlView.updateScore(0);
+        controlView.updateLevel(1);
+        controlView.updateLines(0);
     }
 
     @Override

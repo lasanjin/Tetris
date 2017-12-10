@@ -3,7 +3,7 @@ package utils;
 import java.awt.*;
 
 /**
- * This class holds dimensions of different panelns, buttons etc.
+ * This class holds constants and dimensions of different panels, buttons etc.
  */
 public class Constants {
     private static final Dimension FRAME_SIZE = new Dimension(458, 667);
@@ -18,6 +18,8 @@ public class Constants {
     private static final Dimension MUSIC_BUTTON_POS = new Dimension(273,348);
     private static final Dimension TETRIMINO_SIZE = new Dimension(27, 27);
     private static final Dimension BOARD_SCALE = new Dimension(10, 24);
+    private static final Color FONT_COLOR = new Color(201, 201, 201);
+    private static final Font FONT = new Font("Courier New", Font.PLAIN, 32);
 
     public static Dimension getFrameSize() {
         return new Dimension(FRAME_SIZE);
@@ -65,5 +67,13 @@ public class Constants {
 
     public static Dimension getBoardScale() {
         return new Dimension(BOARD_SCALE);
+    }
+
+    public static Color getFontColor() {
+        return FONT_COLOR;
+    }
+
+    public static Font getFont() {
+        return FONT;
     }
 }

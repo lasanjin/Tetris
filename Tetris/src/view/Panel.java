@@ -7,10 +7,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * This class paints the right panel (score etc.)
+ * This class paints the right panel (score etc.). The positions and constants are hardcoded for
+ * this specific layout.
  */
 public class Panel extends Board {
-    private int Y_POS = TETRIMINO_SIZE.height;
+    private int YPOS = TETRIMINO_SIZE.height;
     private int NEXT_YPOS = 154;
     private int SCORE_YPOS = 473;
     private int LEVEL_YPOS = 646;
@@ -59,28 +60,12 @@ public class Panel extends Board {
     }
 
     private int calcYNext(char c, int i) {
+        int yPos = i * 3 * YPOS;
         if (c == 'I') {
-            if (i == 0) {
-                return 0;
-            }
-            if (i == 1) {
-                return 3 * Y_POS;
-            }
-            if (i == 2) {
-                return 6 * Y_POS;
-            }
+            return yPos;
         } else {
-            if (i == 0) {
-                return Y_POS / 2;
-            }
-            if (i == 1) {
-                return (3 * Y_POS) + Y_POS / 2;
-            }
-            if (i == 2) {
-                return (6 * Y_POS) + Y_POS / 2;
-            }
+            return yPos + YPOS / 2;
         }
-        return 0;
     }
 
     private void drawNextTetrimino(Graphics g, ITetrimino nextTetrimino, int xPos, int yPos) {
@@ -118,48 +103,58 @@ public class Panel extends Board {
     }
 
     private void drawScore(Graphics g) {
-        g.setFont(new Font("Courier New", Font.PLAIN, 32));
-        g.setColor(new Color(201, 201, 201));
-        if (score >= 0 && score < 10) {
-            g.drawString(String.valueOf(score), 62, SCORE_YPOS);
+        initFont(g);
+        if (isInterval(score, 0, 10)) {
+            g.drawString(getString(score), 62, SCORE_YPOS);
         }
-        if (score >= 10 && score < 100) {
-            g.drawString(String.valueOf(score), 52, SCORE_YPOS);
+        if (isInterval(score, 10, 100)) {
+            g.drawString(getString(score), 52, SCORE_YPOS);
         }
-        if (score >= 100 && score < 1000) {
-            g.drawString(String.valueOf(score), 41, SCORE_YPOS);
+        if (isInterval(score, 100, 1000)) {
+            g.drawString(getString(score), 41, SCORE_YPOS);
         }
-        if (score >= 1000 && score < 10000) {
-            g.drawString(String.valueOf(score), 32, SCORE_YPOS);
+        if (isInterval(score, 1000, 10000)) {
+            g.drawString(getString(score), 32, SCORE_YPOS);
         }
         if (score >= 10000) {
-            g.drawString(String.valueOf(score), 24, SCORE_YPOS);
+            g.drawString(getString(score), 24, SCORE_YPOS);
         }
     }
 
     private void drawLevel(Graphics g) {
-        g.setFont(new Font("Courier New", Font.PLAIN, 32));
-        g.setColor(new Color(201, 201, 201));
-        if (level >= 0 && level < 10) {
-            g.drawString(String.valueOf(level), 62, LEVEL_YPOS);
+        initFont(g);
+        if (isInterval(level, 0, 10)) {
+            g.drawString(getString(level), 62, LEVEL_YPOS);
         }
-        if (level >= 10 && level < 100) {
-            g.drawString(String.valueOf(level), 52, LEVEL_YPOS);
+        if (isInterval(level, 10, 100)) {
+            g.drawString(getString(level), 52, LEVEL_YPOS);
         }
     }
 
     private void drawLines(Graphics g) {
-        g.setFont(new Font("Courier New", Font.PLAIN, 32));
-        g.setColor(new Color(201, 201, 201));
-        if (lines >= 0 && lines < 10) {
-            g.drawString(String.valueOf(lines), 62, LINES_YPOS);
+        initFont(g);
+        if (isInterval(lines, 0, 10)) {
+            g.drawString(getString(lines), 62, LINES_YPOS);
         }
-        if (lines > 9 && lines < 100) {
-            g.drawString(String.valueOf(lines), 52, LINES_YPOS);
+        if (isInterval(lines, 9, 100)) {
+            g.drawString(getString(lines), 52, LINES_YPOS);
         }
         if (lines >= 100) {
-            g.drawString(String.valueOf(lines), 41, LINES_YPOS);
+            g.drawString(getString(lines), 41, LINES_YPOS);
         }
+    }
+
+    private void initFont(Graphics g) {
+        g.setFont(Constants.getFont());
+        g.setColor(Constants.getFontColor());
+    }
+
+    private boolean isInterval(int n, int min, int max) {
+        return n >= min && n < max;
+    }
+
+    private String getString(int n) {
+        return String.valueOf(n);
     }
 
     public void updateNextTetrimino(ArrayList<ITetrimino> next) {

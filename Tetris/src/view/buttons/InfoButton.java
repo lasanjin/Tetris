@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.util.Map;
 
 /**
- * This class handles Info Button action.
+ * This class handles Info button's action.
  */
 public class InfoButton extends JComponent {
     private Map<String, BufferedImage> imageMap;
