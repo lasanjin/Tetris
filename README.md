@@ -1,5 +1,5 @@
 # Tetris
-My first hobby project. I made this game alongside my studies during my first year at Chalmers in order to practice basic concepts of programming and MVC patterns.
+I made this game alongside my studies during my first year at Chalmers to develop my Java skills and practice some basic OOP patterns.
 
 ## Desciption
 Navigate with mouse. Click on screen to toggle between menu and gameplay or go back to menu from different view.
