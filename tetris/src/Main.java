@@ -8,6 +8,10 @@ import view.*;
  */
 public class Main {
     public static void main(String[] args) {
+        // enable OpenGL to get accelerated performance in Linux:
+        System.setProperty("sun.java2d.opengl", "True");
+        System.setProperty("sun.java2d.accthreshold", "0");
+
         try {
             new FileHandler();
             Thread.sleep(2000);
