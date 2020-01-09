@@ -1,8 +1,14 @@
 # Tetris
-I made this game alongside my studies during my first year at Chalmers to develop my Java skills and practice some basic OOP patterns.
+I made this game during my first year at Chalmers to develop my Java skills and practice some basic OOP patterns.
 
-## Desciption
-Navigate with mouse. Click on screen to toggle between menu and gameplay or go back to menu from different view.
+## How to run
+1. Compile and run
+```
+$ chmod +x run.sh && ./run.sh
+```
+2. Navigate with mouse
+   - Click on screen to toggle between menu and gameplay or go back to menu from different views
+   - See INFO for controls
 
 
 ## GUI
